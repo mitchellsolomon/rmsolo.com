@@ -1,0 +1,22 @@
+/* ./styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --light100: #ffffff;
+  --light200: #f7f7f7;
+  --light300: #dedede;
+  --light400: #737373;
+  --light500: #282828;
+  --light600: #000000;
+}
+
+[data-theme="dark"] {
+  --dark100: #4c97ff;
+  --dark200: #2d72d2;
+  --dark300: #24508f;
+  --dark400: #1c2f4a;
+  --dark500: #0d223f;
+  --dark600: #121821;
+}
