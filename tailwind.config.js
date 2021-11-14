@@ -20,6 +20,8 @@ module.exports = {
       },
       fontFamily: {
         system: ["system-ui"],
+        code: ["Fira Code"],
+        inter: ["Inter"],
       },
     },
   },
