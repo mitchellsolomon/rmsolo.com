@@ -9,7 +9,7 @@ export default function Home() {
         <title>mitchellsolomon.dev</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="flex flex-col min-h-screen bg-light100 dark:bg-dark600">
+      <div className="flex flex-col w-full min-h-screen bg-light100 dark:bg-dark600">
         <nav className=" font-inter font-extrabold py-5 flex justify-between ">
           <ul className="flex items-center">
             <li className="text-2xl pl-8 pr-3">
@@ -32,7 +32,7 @@ export default function Home() {
           </ul>
         </nav>
 
-        <main className="flex-grow">
+        <main className=" flex-grow">
           <h1 className=" text-dark100 text-center text-2xl font-extrabold">
             Under Construction 🛠
           </h1>
