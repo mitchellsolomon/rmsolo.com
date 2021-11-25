@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
 export default function ThemeIcon() {
-  const { theme, setTheme } = useTheme();
+  const { systemTheme, theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
