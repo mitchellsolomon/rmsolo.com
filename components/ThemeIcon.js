@@ -16,9 +16,21 @@ export default function ThemeIcon() {
     const currentTheme = theme === "system" ? systemTheme : theme;
 
     if (currentTheme === "light") {
-      return <BsFillSunFill role="button" onClick={() => setTheme("dark")} />;
+      return (
+        <BsFillSunFill
+          size={18}
+          role="button"
+          onClick={() => setTheme("dark")}
+        />
+      );
     } else {
-      return <BsFillMoonFill role="button" onClick={() => setTheme("light")} />;
+      return (
+        <BsFillMoonFill
+          size={18}
+          role="button"
+          onClick={() => setTheme("light")}
+        />
+      );
     }
   };
 
