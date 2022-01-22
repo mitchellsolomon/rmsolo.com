@@ -29,7 +29,7 @@ export default function Layout(props) {
                   <a className="">blog</a>
                 </Link>
               </li>
-              <li className="px-4 py-[6px] bg-black text-white rounded-full">
+              <li className="px-3">
                 <Link href="/resume.pdf">
                   <a target="_blank" rel="noreferrer">
                     resume
@@ -37,6 +37,7 @@ export default function Layout(props) {
                 </Link>
               </li>
             </ul>
+
             <ul className="flex items-center justify-center">
               <li className="px-3">
                 <a
