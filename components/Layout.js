@@ -15,8 +15,8 @@ export default function Layout(props) {
           <nav className="flex justify-around items-center">
             <ul className="flex items-center">
               <li className="px-3">
-                <Link href="/about">
-                  <a className="">about</a>
+                <Link href="/">
+                  <a className="">home</a>
                 </Link>
               </li>
               <li className="px-3">
@@ -25,7 +25,7 @@ export default function Layout(props) {
                 </Link>
               </li>
               <li className="px-3 ">
-                <Link href="/">
+                <Link href="/blog">
                   <a className="">blog</a>
                 </Link>
               </li>
