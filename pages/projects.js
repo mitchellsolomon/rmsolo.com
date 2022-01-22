@@ -1,13 +1,10 @@
 import Layout from "../components/Layout";
+import Filler from "../components/Filler";
 
 export default function projects() {
   return (
     <Layout>
-      <div className="flex flex-grow justify-center items-center text-center ">
-        <h1 className="text-center text-3xl font-extrabold">
-          Under Construction 🛠
-        </h1>
-      </div>
+      <Filler />
     </Layout>
   );
 }
