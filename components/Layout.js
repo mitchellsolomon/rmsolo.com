@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Link from "next/link";
-import { BsGithub, BsTwitter } from "react-icons/bs";
+import { BsGithub } from "react-icons/bs";
 
 export default function Layout(props) {
   return (
     <>
       <Head>
-        <title>Mitchell Solomon</title>
+        <title>rmsolo.com</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -22,11 +22,6 @@ export default function Layout(props) {
               <li className="px-3">
                 <Link href="/projects">
                   <a className="">projects</a>
-                </Link>
-              </li>
-              <li className="px-3 ">
-                <Link href="/blog">
-                  <a className="">blog</a>
                 </Link>
               </li>
               <li className="px-3">
@@ -47,16 +42,6 @@ export default function Layout(props) {
                   rel="noreferrer"
                 >
                   <BsGithub size={22} />
-                </a>
-              </li>
-              <li className="px-3">
-                <a
-                  className="hover:text-[#1d9bf0]"
-                  href="https://twitter.com/rmsolomon_"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <BsTwitter size={22} />
                 </a>
               </li>
             </ul>

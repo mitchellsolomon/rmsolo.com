@@ -1,10 +1,10 @@
 import Layout from "../components/Layout";
-import Filler from "../components/Filler";
+import ComingSoon from "../components/ComingSoon";
 
 export default function projects() {
   return (
     <Layout>
-      <Filler />
+      <ComingSoon />
     </Layout>
   );
 }
