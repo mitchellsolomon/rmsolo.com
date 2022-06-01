@@ -1,24 +1,24 @@
 {
+  "name": "rmsolo",
   "private": true,
+  "version": "0.0.0",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src/**/*.{js,vue}",
+    "fix": "eslint --fix src/**/*.{js,vue}"
   },
   "dependencies": {
-    "next": "latest",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-icons": "^4.3.1"
+    "vue": "^3.2.25"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.0",
-    "eslint": "^7.32.0",
-    "eslint-config-next": "12.0.3",
-    "eslint-config-prettier": "^8.3.0",
-    "postcss": "^8.4.4",
-    "prettier": "2.4.1",
-    "tailwindcss": "^3.0.0"
+    "@vitejs/plugin-vue": "^2.3.3",
+    "autoprefixer": "^10.4.7",
+    "eslint": "^8.16.0",
+    "eslint-plugin-vue": "^9.0.1",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.9.9"
   }
 }
