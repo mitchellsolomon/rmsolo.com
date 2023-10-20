@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import Navbar from "./components/navbar";
 import "./globals.css";
 
@@ -20,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-neutral-50 dark:bg-[#0e0e0f] text-black dark:text-white m-16 flex flex-col max-w-sm sm:max-w-md md:max-w-2xl min-h-screen mx-auto`}
+        className={`${inter.className} bg-neutral-50 dark:bg-[#0e0e0f] text-black dark:text-white flex flex-col max-w-sm sm:max-w-md md:max-w-2xl m-8 sm:m-12 md:m-16 min-h-screen w-full mx-auto`}
       >
         <main>
           <Navbar />

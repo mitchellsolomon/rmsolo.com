@@ -18,6 +18,7 @@ export default function Root() {
           src={avatar}
           width={100}
           height={100}
+          priority={true}
           placeholder="blur"
           className="rounded-full"
         />
