@@ -9,13 +9,13 @@ export default function Links() {
         >
           GitHub
         </a>
-        <a
+        {/* <a
           href="https://www.linkedin.com/in/reaganmitchellsolomon/"
           className="text-xl font-bold"
           target="_blank"
         >
           LinkedIn
-        </a>
+        </a> */}
         {/* <a href="https://resume.com" className="text-xl font-bold">
           Resume
         </a> */}
