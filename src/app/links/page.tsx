@@ -4,7 +4,7 @@ export default function Links() {
       <div className="flex flex-col justify-center items-center gap-4">
         <a
           href="https://github.com/mitchellsolomon"
-          className="text-xl font-bold"
+          className="text-xl font-bold hover:border-b hover:border-blue-300"
           target="_blank"
         >
           GitHub

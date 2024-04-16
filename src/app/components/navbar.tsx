@@ -13,17 +13,26 @@ export default function Navbar() {
         <Link
           href="/"
           key="home"
-          className={clsx({
+          className={clsx('hover:border-b hover:border-blue-300', {
             "border-b border-blue-400": pathname === "/",
           })}
         >
           home
         </Link>
+        <Link
+          href="/about"
+          key="about"
+          className={clsx('hover:border-b hover:border-blue-300', {
+            "border-b border-blue-400": pathname === "/about",
+          })}
+        >
+          about
+        </Link>
       </div>
       <Link
         href="/links"
         key="links"
-        className={clsx({
+        className={clsx('hover:border-b hover:border-blue-300', {
           "border-b border-blue-400": pathname === "/links",
         })}
       >
