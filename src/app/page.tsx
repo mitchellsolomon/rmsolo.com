@@ -7,7 +7,7 @@ export default function Root() {
       <div className="flex justify-between items-center mb-12 h-[90px]">
         <h1 className="text-4xl font-bold flex gap-x-4">
           <div>
-            Hey, i'm <span className="text-blue-400">Mitchell</span>
+            Hey, i&apos;m <span className="text-blue-400">Mitchell</span>
           </div>
           <span>👋</span>
         </h1>
