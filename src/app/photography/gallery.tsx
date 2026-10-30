@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 import type { Photograph } from "./photos";
+import { boardLayout, type BoardPosition } from "./board-layout";
 
 type GalleryItem = {
   id: string;
@@ -9,31 +10,12 @@ type GalleryItem = {
   photo?: Photograph;
 };
 
-type Position = { column: number; ratio: number; gaps: number };
-
-// Each height is a multiple of column width plus fixed gaps. Intrinsic image
-// dimensions let the server calculate positions without measuring the DOM.
-function layout(items: GalleryItem[], columns: number) {
-  const firstRatio = items.length ? items[0].height / items[0].width : 0;
-  const cursors = Array.from({ length: columns }, (_, column) => ({
-    column,
-    ratio: column === 1 ? firstRatio / 2 : 0,
-    gaps: column === 1 ? 0.5 : 0,
-  }));
-  const positions = items.map((item, index) => {
-    const cursor = cursors[index % columns];
-    const position = { ...cursor };
-    cursor.ratio += item.height / item.width;
-    cursor.gaps += 1;
-    return position;
-  });
-  const ends = cursors
-    .filter((_, column) => column < items.length)
-    .map((cursor) => distance({ ...cursor, gaps: cursor.gaps - 1 }));
-  return { positions, height: ends.length ? `max(${ends.join(", ")})` : "0px" };
+function layout(items: GalleryItem[], columns: 2 | 3) {
+  const { positions, ends } = boardLayout(items, columns);
+  return { positions, height: ends.length ? `max(${ends.map(distance).join(", ")})` : "0px" };
 }
 
-function distance({ ratio, gaps }: Position) {
+function distance({ ratio, gaps }: BoardPosition) {
   return `calc(var(--column-width) * ${ratio} + var(--gallery-gap) * ${gaps})`;
 }
 
@@ -63,7 +45,7 @@ export default function Gallery({ photos }: { photos: Photograph[] }) {
       <div
         role="list"
         aria-label={preview ? "Gallery layout preview" : "Photographs"}
-        className="relative flex flex-col gap-6 [--gallery-gap:24px] sm:block sm:h-[var(--height-2)] sm:[--column-width:calc((100cqw-24px)/2)] lg:h-[var(--height-3)] lg:[--column-width:calc((100cqw-48px)/3)]"
+        className="relative flex flex-col gap-8 [--gallery-gap:32px] sm:block sm:h-[var(--height-2)] sm:[--column-width:calc((100cqw-32px)/2)] lg:h-[var(--height-3)] lg:[--gallery-gap:40px] lg:[--column-width:calc((100cqw-80px)/3)]"
         style={{ "--height-2": two.height, "--height-3": three.height } as CSSProperties}
       >
         {items.map((item, index) => (
@@ -83,7 +65,7 @@ export default function Gallery({ photos }: { photos: Photograph[] }) {
                 src={item.photo.src}
                 alt={item.photo.alt}
                 placeholder={item.photo.src.blurDataURL ? "blur" : "empty"}
-                sizes="(min-width: 1440px) 432px, (min-width: 1024px) calc((100vw - 144px) / 3), (min-width: 640px) calc((100vw - 88px) / 2), calc(100vw - 40px)"
+                sizes="(min-width: 1440px) 422px, (min-width: 1024px) calc((100vw - 176px) / 3), (min-width: 640px) calc((100vw - 96px) / 2), calc(100vw - 40px)"
                 preload={index === 0}
                 className="block h-auto w-full"
               />

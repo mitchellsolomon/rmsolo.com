@@ -15,9 +15,9 @@ export const photographs: Photograph[] = [
 ];
 ```
 
-The list controls order. Images keep their full aspect ratio and share a column
-width. The second column starts halfway down the first photo plus half a gap.
-With mixed aspect ratios, subsequent photos flow at their natural heights.
+The list controls order. Images keep their full aspect ratio. On larger screens,
+each photo uses the full column width, with varied vertical offsets and spacing. Mobile uses one full-width column. The layout never crops or
+overlaps photos. Base gaps are 32px, increasing to 40px on desktop.
 
 Static imports supply dimensions and blur placeholders. The gallery's `sizes`
 attribute describes its responsive widths so Next.js can serve suitable image

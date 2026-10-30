@@ -18,9 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} bg-neutral-50 dark:bg-[#0e0e0f] text-black dark:text-white`}
+        className={`${inter.className} min-h-dvh bg-white text-base leading-relaxed text-neutral-900 antialiased`}
       >
-        <header className="mx-auto w-full max-w-sm px-5 pt-6 sm:max-w-lg sm:px-0 sm:pt-10 md:max-w-2xl md:pt-14">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:px-4 focus:py-3 focus:text-blue-700 focus:shadow-md">
+          Skip to content
+        </a>
+        <header className="site-container pt-5 pb-10 sm:pt-8 sm:pb-14 lg:pt-10 lg:pb-16">
           <Navbar />
         </header>
         {children}

@@ -81,10 +81,12 @@ The scheduler uses a copy of `sync.py`; updates to the source script must also b
 copied to the support folder while the job is stopped. Recompile/re-sign the
 native helper when updating Swift code; macOS may ask for Photos access again.
 
-Photos initially receive the generic alt text “Photograph by Mitchell Solomon”.
-Descriptive per-photo captions are a follow-up enhancement. Never hand-edit the
-generated manifest; the next sync replaces it. Manual static photo entries can
-still be added in `photos.ts` alongside `syncedPhotographs`.
+New photos initially receive the generic alt text “Photograph by Mitchell Solomon”.
+Add descriptive alt text in `src/app/photography/descriptions.ts`, keyed by the
+photo's stable ID from `photos.generated.ts`. The current seven photos already
+have descriptions. The sync preserves the editorial descriptions file. Never
+hand-edit the generated manifest; the next sync replaces it. Manual static
+photo entries can still be added in `photos.ts` alongside `syncedPhotographs`.
 
 ## Verification
 

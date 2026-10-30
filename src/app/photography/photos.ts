@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 import { syncedPhotographs } from "./photos.generated";
+import { descriptions } from "./descriptions";
 
 export type Photograph = {
   id: string;
@@ -9,4 +10,7 @@ export type Photograph = {
 
 // Import web-ready originals from @/assets/photography, then add them here.
 // Static imports provide intrinsic dimensions and automatic blur placeholders.
-export const photographs: Photograph[] = [...syncedPhotographs];
+export const photographs: Photograph[] = syncedPhotographs.map((photo) => ({
+  ...photo,
+  alt: descriptions[photo.id] ?? photo.alt,
+}));

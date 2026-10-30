@@ -3,39 +3,38 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+const links = [
+  { href: "/", label: "home" },
+  { href: "/about", label: "about" },
+  { href: "/photography", label: "photography" },
+];
+
 export default function Navbar() {
   const pathname = usePathname();
 
-  const className = (href: string) => {
-    if (pathname === href) {
-      return "border-b border-blue-400 hover:border-b hover:border-blue-300";
-    }
-
-    return "hover:border-b hover:border-blue-300";
-  };
-
   return (
-    <nav className="font-medium flex justify-between items-center mb-12">
-      <div className="flex gap-5">
-        <Link href="/" key="home" className={className("/")}>
-          home
-        </Link>
-        <Link href="/about" key="about" className={className("/about")}>
-          about
-        </Link>
-        <Link href="/photography" className={className("/photography")}>
-          photography
-        </Link>
-      </div>
-      <Link
+    <nav aria-label="Main navigation" className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 text-sm font-medium sm:text-base">
+      <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 sm:gap-x-6">
+        {links.map(({ href, label }) => (
+          <li key={href}>
+            <Link
+              href={href}
+              aria-current={pathname === href ? "page" : undefined}
+              className={`inline-flex min-h-11 min-w-11 items-center decoration-1 underline-offset-8 hover:underline ${pathname === href ? "underline" : "no-underline"}`}
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <a
         href="https://links.rmsolo.com"
-        key="links"
         target="_blank"
         rel="noopener noreferrer"
-        className={className("/links")}
+        className="inline-flex min-h-11 min-w-11 items-center justify-end underline-offset-8 hover:underline"
       >
-        links
-      </Link>
+        links<span className="sr-only"> (opens in a new tab)</span>
+      </a>
     </nav>
   );
 }

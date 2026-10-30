@@ -1,14 +1,14 @@
-export default function Root() {
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "About | Mitchell Solomon" };
+
+export default function About() {
   return (
-    <div className="flex flex-col gap-y-16">
-      <div className="">
-        <h2 className="mb-4 font-bold">
-          <span className="text-red-400 text-xl">About me</span>
-        </h2>
-        <p className="leading-8 font-medium text-lg text-neutral-900 dark:text-neutral-300">
-          I&apos;m a web developer 👨‍💻, tech enthusiast, and guitar player 🎸.
-        </p>
-      </div>
+    <div>
+      <h1 className="page-title mb-6">About me</h1>
+      <p className="max-w-prose text-base leading-relaxed text-neutral-700 sm:text-lg">
+        I&apos;m a web developer, tech enthusiast, and guitar player.
+      </p>
     </div>
   );
 }

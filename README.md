@@ -37,11 +37,26 @@ Store web-ready originals in `src/assets/photography` and register static import
 with descriptive alt text in `src/app/photography/photos.ts`. See
 [`src/assets/photography/README.md`](src/assets/photography/README.md) for an example.
 
-The gallery preserves each photo's aspect ratio, with one column below 640px,
-two below 1024px, and three on larger screens. Columns share a width and 24px
-gaps; the second column starts half a photo lower. The page is white in both
-light and dark mode. The `(site)` route group keeps the other pages' narrower
-layout without changing their URLs.
+Every page and the shared navigation use the same `site-container`: a maximum
+width of 1440px and 20/32/48px responsive side padding. Body text starts at 16px;
+headings use a rem-based fluid scale, and prose retains a readable line length.
+Navigation has 44px minimum targets, current-page semantics, visible keyboard
+focus, and a skip-to-content link. All pages use a white background.
+
+The gallery preserves full aspect ratios: one column below 640px, two below
+1024px, and three on larger screens. All photos use their full column width,
+with variation only in vertical offsets and spacing. Gaps start at 32px
+and increase to 40px on desktop, with additional vertical breathing room.
+Positions are calculated on the server from intrinsic dimensions. There is no
+random layout, client-side measurement, cropping, or animated rearrangement.
+
+Photo descriptions live in `src/app/photography/descriptions.ts`, keyed by the
+stable IDs in `photos.generated.ts`. Add descriptive alt text there for new
+album photos; this editorial file is not overwritten by the sync job.
+
+Run `node --test scripts/test-board-layout.mjs` to check layout bounds and
+spacing for mixed aspect ratios and verify existing placements stay stable
+when more photos are appended. These checks are not a full WCAG audit.
 
 ## Vercel
 
