@@ -5,14 +5,16 @@ import photo1 from "@/assets/photography/synced/24e42acc3609aa88f536e4ee589a2020
 import photo2 from "@/assets/photography/synced/2cea0a959ad193c6683812d0dcd1346b87984799971cba3c4cc0fc3272e9d68b.jpg";
 import photo3 from "@/assets/photography/synced/83fb891a92e8639c7b8d8795f058ce974494080740bad135254b68feaaa0f242.jpg";
 import photo4 from "@/assets/photography/synced/9b3dee4cf570582fc26446c543ebb619b48c302f53a2786f71e6d02e0f1c8339.jpg";
-import photo5 from "@/assets/photography/synced/ee2428faa2bae4a776ddb6b4eeaa3c401480911f7f7b2d390c1089ff3fca20e7.jpg";
-import photo6 from "@/assets/photography/synced/f955cac9709dd163942c6952d082714557bb8c5bb29a7a9b1a84214d353a3bdd.jpg";
+import photo5 from "@/assets/photography/synced/e6b27d9248c9bcfa60084d8ea32e96b45911643a5cc9544d64a4de35b215917f.jpg";
+import photo6 from "@/assets/photography/synced/ee2428faa2bae4a776ddb6b4eeaa3c401480911f7f7b2d390c1089ff3fca20e7.jpg";
+import photo7 from "@/assets/photography/synced/f955cac9709dd163942c6952d082714557bb8c5bb29a7a9b1a84214d353a3bdd.jpg";
 
 export const syncedPhotographs: Photograph[] = [
+  { id: "20d84275e721d52b3964de2889be12c4b50ce973443c53f6f8b4f0293bd924cd", src: photo5, alt: "Photograph by Mitchell Solomon" },
   { id: "6ddd412432c08743d028b3e10415914df4d1d63081f01a754abb6779e53969bf", src: photo0, alt: "Photograph by Mitchell Solomon" },
   { id: "259f34af7263998ed2cc7ff0625e9ea282d376a90ac62e9864e7df89fe6dd5bb", src: photo1, alt: "Photograph by Mitchell Solomon" },
-  { id: "f087e8528cc1dd448998abe19d48b6fce796fafe60d1cfd7d91459b04349c02d", src: photo5, alt: "Photograph by Mitchell Solomon" },
-  { id: "a96b7498211c1cac6b613be768a889c21780d35400d1ded861839257763b16ce", src: photo6, alt: "Photograph by Mitchell Solomon" },
+  { id: "f087e8528cc1dd448998abe19d48b6fce796fafe60d1cfd7d91459b04349c02d", src: photo6, alt: "Photograph by Mitchell Solomon" },
+  { id: "a96b7498211c1cac6b613be768a889c21780d35400d1ded861839257763b16ce", src: photo7, alt: "Photograph by Mitchell Solomon" },
   { id: "36dab2d5681d51f6bf20324ee60fa0fbedb5b683337a16c53b36c390b4dada9a", src: photo2, alt: "Photograph by Mitchell Solomon" },
   { id: "a346b383cf7d4837763c9b1a655f9ececd8d70223c41371da1a6793378db35a8", src: photo3, alt: "Photograph by Mitchell Solomon" },
   { id: "4a452adb88daa7f0b4237e55f1fb64ac82328d237e6d72bec75cbda078be2e23", src: photo4, alt: "Photograph by Mitchell Solomon" },
