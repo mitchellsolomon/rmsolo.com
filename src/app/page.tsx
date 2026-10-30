@@ -6,9 +6,9 @@ export default function Root() {
     <div>
       <div className="flex justify-between items-center mb-12 h-[90px]">
         <h1 className="text-4xl font-bold flex gap-x-4">
-          <div>
+          <span>
             Hey, i&apos;m <span className="text-blue-400">Mitchell</span>
-          </div>
+          </span>
           <span>👋</span>
         </h1>
         <Image
@@ -16,7 +16,7 @@ export default function Root() {
           src={avatar}
           width={100}
           height={100}
-          priority={true}
+          preload
           placeholder="blur"
           className="rounded-full"
         />

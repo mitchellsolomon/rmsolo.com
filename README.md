@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# rmsolo.com
 
-## Getting Started
+Mitchell Solomon's personal website, built with Next.js App Router, React, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## Local development
+
+Use Node.js 24 (see `.nvmrc`) and pnpm 10.34.9 (pinned in `package.json`). With Corepack installed, `corepack enable` activates the pinned package manager. Alternatively, install it with `npm install --global pnpm@10.34.9`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install --frozen-lockfile
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+pnpm lint
+pnpm typecheck
+pnpm build
+pnpm start
+```
 
-## Learn More
+`pnpm build` runs ESLint before creating the production build. Next.js also checks TypeScript during the build. `pnpm typecheck` generates route types before checking, so it works on a fresh checkout.
 
-To learn more about Next.js, take a look at the following resources:
+The site has routes at `/`, `/about`, and `/links`. The navigation's links item intentionally opens `https://links.rmsolo.com` in a new tab.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Framework preset: **Next.js**.
+- Root directory: the repository root.
+- Node.js: **24.x**, enforced by `engines.node` in `package.json`.
+- Enable Corepack by setting **`ENABLE_EXPERIMENTAL_COREPACK=1`** for builds so Vercel uses the pinned pnpm version.
+- Leave the install command on automatic detection; commit `pnpm-lock.yaml` and `pnpm-workspace.yaml` with `package.json`.
+- Build command: **`pnpm build`** (also the automatic default for this project).
+- Leave the output directory at the Next.js default.
 
-## Deploy on Vercel
+No application environment variables are required. `next/font/google` downloads Inter during the build, so the build environment needs access to Google Fonts. Fonts are then served by the site.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+After updating dependencies or changing Node versions, redeploy without the previous build cache if Vercel retains stale artifacts.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+See [Vercel package manager configuration](https://vercel.com/docs/package-managers) and [Corepack configuration](https://vercel.com/docs/builds/configure-a-build#corepack).
+
+## Dependency maintenance
+
+Next.js and `eslint-config-next` use matching versions. Tailwind 4 uses `@tailwindcss/postcss`; the old Tailwind config and Autoprefixer are no longer needed.
+
+ESLint stays on 9.x because `eslint-plugin-react`, included by Next.js, currently declares support through ESLint 9. TypeScript stays on 6.0.x because `typescript-eslint` currently requires TypeScript below 6.1. Update these together when their peer dependencies support newer majors. Node type definitions track the Node 24 deployment runtime.
+
+To refresh compatible direct and indirect dependencies, then validate:
+
+```bash
+pnpm update --depth Infinity
+pnpm audit
+pnpm typecheck
+pnpm build
+```
