@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+/* Keep the photography route white, including the browser's overscroll area. */
+body:has([data-photography-page]) {
+  background: white;
+  color: var(--color-neutral-900);
+}

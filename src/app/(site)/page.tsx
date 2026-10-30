@@ -1,5 +1,5 @@
 import Image from "next/image";
-import avatar from "../app/avatar.jpg";
+import avatar from "@/app/avatar.jpg";
 
 export default function Root() {
   return (

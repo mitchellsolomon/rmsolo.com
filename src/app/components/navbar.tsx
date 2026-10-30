@@ -23,6 +23,9 @@ export default function Navbar() {
         <Link href="/about" key="about" className={className("/about")}>
           about
         </Link>
+        <Link href="/photography" className={className("/photography")}>
+          photography
+        </Link>
       </div>
       <Link
         href="https://links.rmsolo.com"

@@ -24,7 +24,24 @@ pnpm start
 
 `pnpm build` runs ESLint before creating the production build. Next.js also checks TypeScript during the build. `pnpm typecheck` generates route types before checking, so it works on a fresh checkout.
 
-The site has routes at `/`, `/about`, and `/links`. The navigation's links item intentionally opens `https://links.rmsolo.com` in a new tab.
+The site has routes at `/`, `/about`, `/links`, and `/photography`. The navigation's links item intentionally opens `https://links.rmsolo.com` in a new tab.
+
+## Photography
+
+Automatic publishing from the Mac's **Website Photography** album is documented
+in [`scripts/photo-sync/README.md`](scripts/photo-sync/README.md). The native
+helper exports web-ready copies and a background job publishes from an isolated
+checkout. It requires one-time Photos permission and an initial successful sync.
+
+Store web-ready originals in `src/assets/photography` and register static imports
+with descriptive alt text in `src/app/photography/photos.ts`. See
+[`src/assets/photography/README.md`](src/assets/photography/README.md) for an example.
+
+The gallery preserves each photo's aspect ratio, with one column below 640px,
+two below 1024px, and three on larger screens. Columns share a width and 24px
+gaps; the second column starts half a photo lower. The page is white in both
+light and dark mode. The `(site)` route group keeps the other pages' narrower
+layout without changing their URLs.
 
 ## Vercel
 
