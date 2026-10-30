@@ -3,7 +3,8 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from sync import prepare, ASSETS, GENERATED
+from unittest.mock import patch
+from sync import prepare, export_album, ASSETS, GENERATED
 
 class PublicationTests(unittest.TestCase):
     def setUp(self):
@@ -67,6 +68,22 @@ class PublicationTests(unittest.TestCase):
         self.assertFalse((self.repo / ASSETS / first['file']).exists())
         self.assertTrue((self.repo / ASSETS / second['file']).exists())
         self.assertEqual(manual.read_bytes(), b'manual')
+
+    def test_app_launch_success_without_export_cannot_publish_stale_manifest(self):
+        self.manifest([self.photo('existing')])
+        config = {'helper': '/tmp/Photo Sync.app/Contents/MacOS/PhotoExport', 'album': 'Website Photography'}
+        with patch('sync.run', return_value=''):
+            with self.assertRaisesRegex(ValueError, 'did not complete'):
+                export_album(config, self.cache)
+
+    def test_app_launch_requires_success_message_and_fresh_manifest(self):
+        config = {'helper': '/tmp/Photo Sync.app/Contents/MacOS/PhotoExport', 'album': 'Website Photography'}
+        def complete(args):
+            self.assertEqual(args[0:3], ['/usr/bin/open', '-W', '-n'])
+            Path(args[4]).write_text("Exported 1 photographs from 'Website Photography'.\n")
+            self.manifest([self.photo('new')])
+        with patch('sync.run', side_effect=complete):
+            export_album(config, self.cache)
 
 if __name__ == '__main__':
     unittest.main()

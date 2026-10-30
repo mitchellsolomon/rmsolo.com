@@ -37,11 +37,15 @@ The website gallery and sync files must be pushed to main before the first sync.
 
 ```sh
 python3 scripts/photo-sync/install.py
-"$HOME/Library/Application Support/RMSolo Photo Sync/RMSolo Photo Sync.app/Contents/MacOS/PhotoExport" --authorize
+open -W "$HOME/Library/Application Support/RMSolo Photo Sync/RMSolo Photo Sync.app" --args --authorize
 ```
 
 Approve the macOS Photos prompt yourself. If needed, check System Settings →
 Privacy & Security → Photos. Then add photos to the album and enable publishing:
+
+The exporter must launch through `open`, not by executing its binary directly:
+macOS associates Photos permission with the launched app identity. The runner
+checks the export result explicitly because `open` does not return app exit codes.
 
 ```sh
 python3 scripts/photo-sync/install.py --enable

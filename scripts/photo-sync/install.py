@@ -74,5 +74,5 @@ config = {'album': 'Website Photography', 'remote': remote, 'checkout': str(chec
           'cache': str(SUPPORT / 'cache'), 'helper': str(BINARY)}
 (SUPPORT / 'config.json').write_text(json.dumps(config, indent=2) + '\n')
 print(f'Installed helper at {APP}. Background publishing is not enabled yet.')
-print(f'Authorize: "{BINARY}" --authorize')
+print(f'Authorize: open -W "{APP}" --args --authorize')
 print('Then run this installer with --enable after adding your test photos.')

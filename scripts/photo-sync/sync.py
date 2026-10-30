@@ -20,6 +20,26 @@ def run(args, cwd=None, timeout=900):
                           text=True, capture_output=True, timeout=timeout,
                           env={**os.environ, 'GIT_TERMINAL_PROMPT': '0'}).stdout.strip()
 
+def export_album(config, cache):
+    # LaunchServices preserves the app's Photos permission identity. Executing
+    # Contents/MacOS/PhotoExport as a subprocess inherits the caller's identity.
+    app = Path(config['helper']).parents[2]
+    if app.suffix != '.app':
+        raise ValueError('Expected the installed Photos helper app')
+    manifest = cache / 'manifest.json'
+    before = manifest.stat().st_mtime_ns if manifest.exists() else None
+    with tempfile.TemporaryDirectory(prefix='rmsolo-export-') as directory:
+        output, error = Path(directory) / 'stdout', Path(directory) / 'stderr'
+        run(['/usr/bin/open', '-W', '-n', '--stdout', output, '--stderr', error,
+             app, '--args', '--export', config['album'], cache])
+        # open reports launch success, not the helper's exit status. Require
+        # both its success message and a fresh atomic manifest before publishing.
+        message = output.read_text() if output.exists() else ''
+        fresh = manifest.exists() and manifest.stat().st_mtime_ns != before
+        if not message.startswith('Exported ') or not fresh:
+            detail = error.read_text().strip() if error.exists() else ''
+            raise ValueError(detail or 'Photos export did not complete; nothing published')
+
 def prepare(cache, repo):
     photos = json.loads((cache / 'manifest.json').read_text())
     if not isinstance(photos, list) or not 1 <= len(photos) <= 200:
@@ -74,7 +94,7 @@ def sync(config):
         if run(['git', 'status', '--porcelain'], repo):
             raise ValueError('Sync checkout has unfinished changes; inspect it before retrying')
         run(['git', 'pull', '--ff-only', 'origin', 'main'], repo)
-        run([config['helper'], '--export', config['album'], cache])
+        export_album(config, cache)
         count = prepare(cache, repo)
         run(['git', 'add', '--', ASSETS, GENERATED], repo)
         changed = run(['git', 'diff', '--cached', '--name-only'], repo)
