@@ -24,7 +24,7 @@ pnpm start
 
 `pnpm build` runs ESLint before creating the production build. Next.js also checks TypeScript during the build. `pnpm typecheck` generates route types before checking, so it works on a fresh checkout.
 
-The site has routes at `/`, `/about`, `/links`, and `/photography`. The navigation's links item intentionally opens `https://links.rmsolo.com` in a new tab.
+The site has routes at `/`, `/links`, and `/photography`. The shared navigation links to the home and photography pages.
 
 ## Photography
 
