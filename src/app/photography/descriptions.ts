@@ -1,6 +1,9 @@
 // Kept separately so automatic album syncs cannot overwrite editorial alt text.
 // Add a description for each new photo using its ID in photos.generated.ts.
 export const descriptions: Record<string, string> = {
+  "889b25edb8273c4bfc9c1c80b7a59a0755a88978cdb054f22c113f19fdf73792": "Pink and orange sunset clouds over a quiet lane between houses.",
+  "0b7af3ee95955adc42685f218ef419cb2aab598fecfa677cae03e1b49cee4c9f": "A weathered light-blue pickup truck parked beside other vehicles.",
+  "20d84275e721d52b3964de2889be12c4b50ce973443c53f6f8b4f0293bd924cd": "Guitars and amplifiers in a music room with an American flag on the wall.",
   "6ddd412432c08743d028b3e10415914df4d1d63081f01a754abb6779e53969bf": "A black sedan parked beneath palm fronds on a city street lined with shops and overhead wires.",
   "259f34af7263998ed2cc7ff0625e9ea282d376a90ac62e9864e7df89fe6dd5bb": "An illuminated Rolex sign above a glass watch counter in a dimly lit shop.",
   "f087e8528cc1dd448998abe19d48b6fce796fafe60d1cfd7d91459b04349c02d": "A golden reclining Buddha seen between tall columns covered in red and gold patterns.",

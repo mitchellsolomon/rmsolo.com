@@ -3,7 +3,7 @@ import avatar from "@/app/avatar.jpg";
 
 export default function Home() {
   return (
-    <div className="flex flex-col-reverse items-start justify-between gap-8 sm:flex-row sm:items-center">
+    <div className="flex flex-1 flex-col-reverse items-center justify-center gap-8 text-center sm:flex-row sm:justify-between sm:text-left">
       <h1 className="page-title max-w-[24ch]">
         Hey, I&apos;m <span className="text-blue-700">Mitchell</span>{" "}
         <span role="img" aria-label="waving hand">

@@ -32,6 +32,9 @@ Automatic publishing from the Mac's **Website Photography** album is documented
 in [`scripts/photo-sync/README.md`](scripts/photo-sync/README.md). The native
 helper exports web-ready copies and a background job publishes from an isolated
 checkout. It requires one-time Photos permission and an initial successful sync.
+Add photos to that album on an iPhone or Mac, wait for iCloud to sync to the Mac,
+and the job will check every five minutes while the Mac is awake. Newest photos
+appear first, based on their Photos creation date.
 
 Store web-ready originals in `src/assets/photography` and register static imports
 with descriptive alt text in `src/app/photography/photos.ts`. See
@@ -47,16 +50,25 @@ The gallery preserves full aspect ratios: one column below 640px, two below
 1024px, and three on larger screens. All photos use their full column width,
 with variation only in vertical offsets and spacing. Gaps start at 32px
 and increase to 40px on desktop, with additional vertical breathing room.
-Positions are calculated on the server from intrinsic dimensions. There is no
-random layout, client-side measurement, cropping, or animated rearrangement.
+Each photo goes into the shortest column so mixed shapes finish at similar
+heights. Positions use intrinsic dimensions, with no random layout, cropping,
+client-side measurement, or animated rearrangement. Clicking a photo opens an
+optimized full-size view in a native dialog with a dimmed backdrop. The viewer
+requests a size matched to the photo's shape and viewport, and reserves space
+for a blur placeholder while the full image loads. Added 1280px and 1440px
+optimizer widths avoid the default jump from 1200px to 1920px on Retina
+screens. Escape, the close button, and the backdrop close it; focus returns to
+the selected photo.
+Descriptions remain available to screen readers without appearing below the image.
 
 Photo descriptions live in `src/app/photography/descriptions.ts`, keyed by the
 stable IDs in `photos.generated.ts`. Add descriptive alt text there for new
 album photos; this editorial file is not overwritten by the sync job.
 
-Run `node --test scripts/test-board-layout.mjs` to check layout bounds and
-spacing for mixed aspect ratios and verify existing placements stay stable
-when more photos are appended. These checks are not a full WCAG audit.
+Run `node --test scripts/test-board-layout.mjs` to check layout bounds,
+spacing, and column balance for mixed aspect ratios and verify existing
+placements stay stable when more photos are appended. These checks are not a
+full WCAG audit.
 
 ## Vercel
 

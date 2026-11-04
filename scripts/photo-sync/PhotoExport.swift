@@ -65,7 +65,9 @@ func export(album: String, to directory: URL) throws {
     guard albums.count == 1, let collection = albums.firstObject else {
         throw SyncError("Expected exactly one regular album named '\(album)'; found \(albums.count). No changes published.")
     }
-    let assets = PHAsset.fetchAssets(in: collection, options: nil)
+    let assetOptions = PHFetchOptions()
+    assetOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+    let assets = PHAsset.fetchAssets(in: collection, options: assetOptions)
     guard assets.count <= 200 else { throw SyncError("Album exceeds the 200-item limit for repository storage. Use dedicated image storage for a larger library.") }
     let manifest = directory.appendingPathComponent("manifest.json")
     let old = (try? JSONDecoder().decode([Photo].self, from: Data(contentsOf: manifest))) ?? []

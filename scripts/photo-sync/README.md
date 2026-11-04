@@ -13,6 +13,8 @@ Mac or iPhone. iCloud must finish syncing them to the Mac before export.
 - Current edited versions are exported as sRGB JPEGs at quality 84%, up to
   2400px on the long edge, without cropping. Source metadata is not copied.
   Live Photos publish their still image; videos are skipped.
+- Photos are ordered by their Photos creation date, newest first. The capture
+  timestamps are used for sorting but are not written into the public gallery.
 - A separate checkout under `~/Library/Application Support/RMSolo Photo Sync`
   commits only `src/assets/photography/synced` and
   `src/app/photography/photos.generated.ts`, then pushes to GitHub main.
@@ -64,6 +66,12 @@ python3 "$HOME/Library/Application Support/RMSolo Photo Sync/sync.py" \
   --config "$HOME/Library/Application Support/RMSolo Photo Sync/config.json"
 ```
 
+For normal updates, add photos to **Website Photography** in Photos on your
+iPhone or Mac. Wait for iCloud Photos to sync them to the Mac; the background
+job checks every five minutes while the Mac is awake and logged in. After it
+pushes a changed album, Vercel builds and publishes the new gallery. Run the
+command above if you want to start a sync immediately.
+
 Inspect `sync.log` and `sync-error.log` in the same support folder, and inspect
 Vercel for build failures. There is no automatic deployment-failure notification.
 If a run leaves changes in the isolated checkout, inspect those files and finish
@@ -83,9 +91,9 @@ native helper when updating Swift code; macOS may ask for Photos access again.
 
 New photos initially receive the generic alt text “Photograph by Mitchell Solomon”.
 Add descriptive alt text in `src/app/photography/descriptions.ts`, keyed by the
-photo's stable ID from `photos.generated.ts`. The current seven photos already
-have descriptions. The sync preserves the editorial descriptions file. Never
-hand-edit the generated manifest; the next sync replaces it. Manual static
+photo's stable ID from `photos.generated.ts`. The sync preserves the editorial
+descriptions file. Never hand-edit the generated manifest; the next sync
+replaces it. Manual static
 photo entries can still be added in `photos.ts` alongside `syncedPhotographs`.
 
 ## Verification

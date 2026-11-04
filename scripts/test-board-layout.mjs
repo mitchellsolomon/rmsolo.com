@@ -31,3 +31,14 @@ for (const columns of [2, 3]) {
     assert.equal(boardLayout(items.slice(0, 1), columns).ends.length, 1);
   });
 }
+
+test('the current mix of photo shapes finishes with balanced desktop columns', () => {
+  const album = [
+    [1800, 2400], [2400, 1800], [2400, 1800], [1600, 2400],
+    [1600, 2400], [1600, 2400], [1536, 2048], [2400, 1600],
+    [2400, 1800], [2400, 1600],
+  ].map(([width, height]) => ({ width, height }));
+  const { ends } = boardLayout(album, 3);
+  const heights = ends.map(({ ratio, gaps }) => ratio * 422 + gaps * 40);
+  assert.ok(Math.max(...heights) - Math.min(...heights) < 250);
+});
