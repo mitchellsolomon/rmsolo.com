@@ -70,7 +70,8 @@ full WCAG audit.
 - Build command: **`pnpm build`** (also the automatic default for this project).
 - Leave the output directory at the Next.js default.
 
-After Strapi is running, set `STRAPI_URL=https://strapi.rmsolohome.com` and
+After the read-only Tailscale Funnel gateway is running, set `STRAPI_URL` to its
+public HTTPS `*.ts.net` URL and
 `STRAPI_READ_TOKEN` in Vercel for all environments that should use it. The token
 stays server-side. Until both are set, the archived gallery is shown.
 `next/font/google` downloads Inter during the build, so the build environment

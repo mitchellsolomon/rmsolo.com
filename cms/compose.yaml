@@ -1,3 +1,5 @@
+name: rmsolo-strapi
+
 services:
   strapi:
     build:
@@ -40,15 +42,15 @@ services:
       timeout: 5s
       retries: 5
 
-  cloudflared:
-    image: cloudflare/cloudflared:latest
+  photo-public:
+    image: nginx:stable-alpine
     restart: unless-stopped
-    profiles: ["tunnel"]
-    command: tunnel --no-autoupdate run
-    environment:
-      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
-    networks:
-      - proxy
+    volumes:
+      - ./photo-public.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "127.0.0.1:1340:80"
+    depends_on:
+      - strapi
 
 volumes:
   uploads:

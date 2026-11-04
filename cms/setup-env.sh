@@ -20,6 +20,5 @@ ADMIN_JWT_SECRET=$(random)
 TRANSFER_TOKEN_SALT=$(random)
 JWT_SECRET=$(random)
 ENCRYPTION_KEY=$(random)
-TUNNEL_TOKEN=
 EOF
 echo "Created private cms/.env with random secrets. Back it up securely."

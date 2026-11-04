@@ -4,11 +4,14 @@ This is a self-hosted Strapi 5 project for the photography page. Production uses
 
 ## Deploy on the Linux server
 
-1. Clone or pull this repository onto the server. In `cms/`, run `bash setup-env.sh`. It creates a private `.env` with random secrets and the Strapi address. Back it up securely.
-2. On this server, Nginx Proxy Manager already uses the shared Docker network named `proxy`. In `cms/`, run `docker compose up -d --build`. The PostgreSQL port is not published. Uploaded files and the database persist in named Docker volumes.
-3. In Nginx Proxy Manager, create a Proxy Host for `strapi.rmsolohome.com`, scheme **http**, forward hostname **rmsolo-strapi**, port **1337**. Leave the host's own SSL settings off; Cloudflare Tunnel provides public HTTPS.
-4. In Cloudflare, create a Tunnel named `rmsolo-strapi` and add a **Published application** route: hostname `strapi.rmsolohome.com`, service `http://nginx-proxy-manager:80`. Cloudflare should create a proxied CNAME for this specific hostname, which overrides the existing wildcard DNS record pointing to a Tailscale address. Copy the tunnel token from the dashboard. On the server, run `bash set-tunnel-token.sh` in `cms/` and paste the token at its hidden prompt. The script starts the `cloudflared` container on the shared `proxy` network. Do not share the token in chat.
-5. Open `https://strapi.rmsolohome.com/admin` and create the first admin account. Protect admin access with a strong password and keep Strapi updated. The Content API needs no public role permissions; the website reads with a server-side API token.
+1. Put the repository's `cms/` contents in `/opt/compose/strapi` on the home server. Run `bash setup-env.sh` there only for a new installation. It creates a private `.env` with random secrets and the Strapi address. Back it up securely. When moving an existing installation, keep its `.env` instead.
+2. Nginx Proxy Manager uses the shared Docker network named `proxy`. In `/opt/compose/strapi`, run `docker compose up -d --build`. The PostgreSQL port is not published. Uploaded files and the database persist in named Docker volumes. The explicit Compose project name `rmsolo-strapi` keeps the existing `rmsolo-strapi_database` and `rmsolo-strapi_uploads` volumes attached even if the directory moves.
+3. In Nginx Proxy Manager, use the existing Proxy Host for `strapi.rmsolohome.com`, scheme **http**, forward hostname **rmsolo-strapi**, port **1337**. This is the private admin address, reachable while connected to Tailscale. Keep its HTTPS certificate enabled.
+4. The `photo-public` container listens on the server's loopback address at port 1340. Its Nginx configuration allows only `GET`/`HEAD` for `/api/photographs` and `/uploads/`; all other routes return 404. Test it locally before publishing: `curl -i http://127.0.0.1:1340/_health`, `curl -i http://127.0.0.1:1340/admin`, and `curl -i -X POST http://127.0.0.1:1340/api/photographs`.
+5. If public automatic updates are desired, enable Tailscale Funnel for this gateway from the server: `sudo tailscale funnel --bg 1340`. Use the HTTPS `*.ts.net` URL reported by Tailscale as the website's `STRAPI_URL`. Funnel makes the gateway public, so check its route restrictions first. The Strapi admin remains on the private `strapi.rmsolohome.com` address. `sudo tailscale funnel reset` removes the Funnel configuration if this host has no other Serve/Funnel routes; otherwise disable only this route.
+6. Open `https://strapi.rmsolohome.com/admin` while connected to Tailscale and create the first admin account. Protect admin access with a strong password and keep Strapi updated. The Content API needs no public role permissions; the website reads with a server-side API token.
+
+If the admin password is lost before email delivery is configured, SSH to the server, run `cd /opt/compose/strapi`, then `docker compose exec strapi npm run strapi -- admin:reset-user-password`. Enter the email and new password at the interactive prompts; do not put the password in a command argument or shell history.
 
 ## Import the existing gallery once
 
@@ -21,7 +24,7 @@ This is a self-hosted Strapi 5 project for the photography page. Production uses
 
    The importer checks `legacyId` before each upload, so it can resume after an interruption. It preserves the existing display order with `sortOrder`. The archival JPEGs do not include a reliable capture date, so edit `takenAt` in Strapi where known. New entries sort by `takenAt` newest first; undated entries use `sortOrder`.
 3. Verify all 27 entries are published and visible in `GET /api/photographs` using an API token. Revoke the temporary Full access token.
-4. Create a **Custom** API token with only `Photograph → find` permission. In Vercel, set `STRAPI_URL=https://strapi.rmsolohome.com` and `STRAPI_READ_TOKEN` to this token, then redeploy. The token must remain server-side. The gallery refreshes from Strapi every five minutes and uses Next.js image optimization for uploaded images. If Strapi is unavailable, it displays the archived gallery.
+4. Create a **Custom** API token with only `Photograph → find` permission. In Vercel, set `STRAPI_URL` to the public HTTPS Funnel URL and `STRAPI_READ_TOKEN` to this token, then redeploy. The token must remain server-side. The gallery refreshes from Strapi every five minutes and uses Next.js image optimization for uploaded images. If Strapi is unavailable, it displays the archived gallery.
 
 ## Add a photo
 
