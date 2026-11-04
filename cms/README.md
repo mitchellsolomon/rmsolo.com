@@ -25,6 +25,6 @@ In **Content Manager → Photograph**, create an entry with a title, descriptive
 
 ## Backups and updates
 
-Back up both Docker volumes: `rmsolo-strapi_database` and `rmsolo-strapi_uploads`. A database dump alone does not include the files. Keep `.env` with the backups because its secrets are required for a full restore. To update the CMS, pull the repo and run `docker compose up -d --build`; take a backup first.
+Back up both Docker volumes: `rmsolo-strapi_database` and `rmsolo-strapi_uploads`. A database dump alone does not include the files. Keep `.env` with the backups because its secrets are required for a full restore. Copy backups off the server; a snapshot on the same disk is useful for rollback but does not protect against disk failure. To update the CMS, sync the `cms/` source to `/opt/compose/strapi` and run `docker compose up -d --build`; take a backup first.
 
 Local development can use SQLite: run `npm ci` in `cms/`, set the secrets in `cms/.env`, then `npm run develop`. The production Compose configuration overrides the database settings for PostgreSQL.

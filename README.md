@@ -26,6 +26,12 @@ pnpm start
 
 The site has routes at `/`, `/links`, and `/photography`. The shared navigation links to the home and photography pages.
 
+## Project organization
+
+`src/app` contains the Next.js App Router routes and shared site UI. The `(site)` route group shares a main layout for the home and links pages without adding a URL segment. Photography renders its own main container because the gallery needs different spacing. Shared navigation and global styles live at the `app` level; gallery components and data loading stay beside the photography route. This is Next.js's supported route-colocation pattern, so separate top-level `components`, `lib`, and `types` folders are unnecessary for this small site.
+
+`cms/` is an independent Strapi application with its own `package.json` and npm lockfile. The site uses pnpm; Strapi's Docker build uses npm. Keep both lockfiles current and do not install the CMS as a pnpm workspace package. The SaaS example in Strapi's blog includes authentication, dashboard, and pricing code that this photography site does not use.
+
 ## Photography
 
 Photographs are managed in Strapi. See [`cms/README.md`](cms/README.md) for
