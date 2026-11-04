@@ -29,8 +29,8 @@ The site has routes at `/`, `/links`, and `/photography`. The shared navigation 
 ## Photography
 
 Photographs are managed in Strapi. See [`cms/README.md`](cms/README.md) for
-deployment, importing the existing gallery, and adding new images. Archived
-photos remain in the site until the CMS is connected so the gallery stays live.
+deployment and adding new images. The live gallery reads published photos
+through a read-only Tailscale Funnel gateway and refreshes within five minutes.
 
 Every page and the shared navigation use the same `site-container`: a maximum
 width of 1440px and 20/32/48px responsive side padding. Body text starts at 16px;
@@ -46,8 +46,7 @@ Each photo goes into the shortest column so mixed shapes finish at similar
 heights. Positions use intrinsic dimensions, with no random layout, cropping,
 client-side measurement, or animated rearrangement. Clicking a photo opens an
 optimized full-size view in a native dialog with a dimmed backdrop. The viewer
-requests a size matched to the photo's shape and viewport. Archived photos retain
-their blur placeholders. Added 1280px and 1440px
+requests a size matched to the photo's shape and viewport. Added 1280px and 1440px
 optimizer widths avoid the default jump from 1200px to 1920px on Retina
 screens. Escape, the close button, and the backdrop close it; focus returns to
 the selected photo.
@@ -70,10 +69,10 @@ full WCAG audit.
 - Build command: **`pnpm build`** (also the automatic default for this project).
 - Leave the output directory at the Next.js default.
 
-After the read-only Tailscale Funnel gateway is running, set `STRAPI_URL` to its
-public HTTPS `*.ts.net` URL and
-`STRAPI_READ_TOKEN` in Vercel for all environments that should use it. The token
-stays server-side. Until both are set, the archived gallery is shown.
+Set `STRAPI_URL` to the public HTTPS Funnel URL and `STRAPI_READ_TOKEN` to a
+Strapi token with only `Photograph → find` permission in Vercel Production. The
+token stays server-side. The gallery shows a temporary-unavailable message if
+the CMS cannot be reached.
 `next/font/google` downloads Inter during the build, so the build environment
 needs access to Google Fonts. Fonts are then served by the site.
 

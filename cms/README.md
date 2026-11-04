@@ -7,24 +7,17 @@ This is a self-hosted Strapi 5 project for the photography page. Production uses
 1. Put the repository's `cms/` contents in `/opt/compose/strapi` on the home server. Run `bash setup-env.sh` there only for a new installation. It creates a private `.env` with random secrets and the Strapi address. Back it up securely. When moving an existing installation, keep its `.env` instead.
 2. Nginx Proxy Manager uses the shared Docker network named `proxy`. In `/opt/compose/strapi`, run `docker compose up -d --build`. The PostgreSQL port is not published. Uploaded files and the database persist in named Docker volumes. The explicit Compose project name `rmsolo-strapi` keeps the existing `rmsolo-strapi_database` and `rmsolo-strapi_uploads` volumes attached even if the directory moves.
 3. In Nginx Proxy Manager, use the existing Proxy Host for `strapi.rmsolohome.com`, scheme **http**, forward hostname **rmsolo-strapi**, port **1337**. This is the private admin address, reachable while connected to Tailscale. Keep its HTTPS certificate enabled.
-4. The `photo-public` container listens on the server's loopback address at port 1340. Its Nginx configuration allows only `GET`/`HEAD` for `/api/photographs` and `/uploads/`; all other routes return 404. Test it locally before publishing: `curl -i http://127.0.0.1:1340/_health`, `curl -i http://127.0.0.1:1340/admin`, and `curl -i -X POST http://127.0.0.1:1340/api/photographs`.
+4. The `photo-public` container listens on the server's loopback address at port 1340. Its Nginx configuration allows only `GET`/`HEAD` for `/api/photographs` and image files in `/uploads/`; all other routes return 404. Image files use long-lived caching because Strapi gives each uploaded file a unique name. Test it locally before publishing: `curl -i http://127.0.0.1:1340/_health`, `curl -i http://127.0.0.1:1340/admin`, and `curl -i -X POST http://127.0.0.1:1340/api/photographs`.
 5. If public automatic updates are desired, enable Tailscale Funnel for this gateway from the server: `sudo tailscale funnel --bg 1340`. Use the HTTPS `*.ts.net` URL reported by Tailscale as the website's `STRAPI_URL`. Funnel makes the gateway public, so check its route restrictions first. The Strapi admin remains on the private `strapi.rmsolohome.com` address. `sudo tailscale funnel reset` removes the Funnel configuration if this host has no other Serve/Funnel routes; otherwise disable only this route.
 6. Open `https://strapi.rmsolohome.com/admin` while connected to Tailscale and create the first admin account. Protect admin access with a strong password and keep Strapi updated. The Content API needs no public role permissions; the website reads with a server-side API token.
 
 If the admin password is lost before email delivery is configured, SSH to the server, run `cd /opt/compose/strapi`, then `docker compose exec strapi npm run strapi -- admin:reset-user-password`. Enter the email and new password at the interactive prompts; do not put the password in a command argument or shell history.
 
-## Import the existing gallery once
+## Website connection
 
-1. In Strapi Admin, go to **Settings → API Tokens** and create a temporary **Full access** token. Do not put it in `.env`, Git, or Vercel.
-2. From the repository root on a machine with Node.js 24 and the archived photos, run:
+The existing gallery was imported into Strapi and the temporary import token was revoked. The live site uses a **Custom** API token with only `Photograph → find` permission. In Vercel Production, `STRAPI_URL` is the public HTTPS Funnel URL and `STRAPI_READ_TOKEN` is a secret. The gallery refreshes from Strapi every five minutes and uses Next.js image optimization. If Strapi is unavailable, the page displays a temporary-unavailable message.
 
-   ```bash
-   STRAPI_URL=https://strapi.rmsolohome.com STRAPI_WRITE_TOKEN='temporary-token' node cms/import-archive.mjs
-   ```
-
-   The importer checks `legacyId` before each upload, so it can resume after an interruption. It preserves the existing display order with `sortOrder`. The archival JPEGs do not include a reliable capture date, so edit `takenAt` in Strapi where known. New entries sort by `takenAt` newest first; undated entries use `sortOrder`.
-3. Verify all 27 entries are published and visible in `GET /api/photographs` using an API token. Revoke the temporary Full access token.
-4. Create a **Custom** API token with only `Photograph → find` permission. In Vercel, set `STRAPI_URL` to the public HTTPS Funnel URL and `STRAPI_READ_TOKEN` to this token, then redeploy. The token must remain server-side. The gallery refreshes from Strapi every five minutes and uses Next.js image optimization for uploaded images. If Strapi is unavailable, it displays the archived gallery.
+The original JPEGs did not include reliable capture dates. Edit `takenAt` in Strapi where known. New entries with dates sort newest first; undated entries use `sortOrder`.
 
 ## Add a photo
 

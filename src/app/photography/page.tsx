@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: "Photography by Mitchell Solomon.",
 };
 
+export const revalidate = 300;
+
 export default async function PhotographyPage() {
   const photographs = await getPhotographs();
   return (
@@ -18,7 +20,13 @@ export default async function PhotographyPage() {
       <header className="pb-10 sm:pb-14">
         <h1 className="page-title">photography</h1>
       </header>
-      <Gallery photos={photographs} />
+      {photographs === null ? (
+        <p role="status" className="py-20 text-sm text-neutral-600">
+          Photography is temporarily unavailable. Please try again later.
+        </p>
+      ) : (
+        <Gallery photos={photographs} />
+      )}
     </main>
   );
 }

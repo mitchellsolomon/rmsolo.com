@@ -1,10 +1,6 @@
-import type { StaticImageData } from "next/image";
-import { archivedPhotographs } from "./photos.archive";
-import { descriptions } from "./descriptions";
-
 export type Photograph = {
   id: string;
-  src: StaticImageData | string;
+  src: string;
   tileSrc?: string;
   width: number;
   height: number;
@@ -29,18 +25,10 @@ type StrapiPhotograph = {
   image?: StrapiImage | null;
 };
 
-const archived: Photograph[] = archivedPhotographs.map((photo) => ({
-  ...photo,
-  width: photo.src.width,
-  height: photo.src.height,
-  blurDataURL: photo.src.blurDataURL,
-  alt: descriptions[photo.id] ?? photo.alt,
-}));
-
-export async function getPhotographs(): Promise<Photograph[]> {
+export async function getPhotographs(): Promise<Photograph[] | null> {
   const base = process.env.STRAPI_URL?.replace(/\/$/, "");
   const token = process.env.STRAPI_READ_TOKEN;
-  if (!base || !token) return archived;
+  if (!base || !token) return process.env.NODE_ENV === "development" ? [] : null;
 
   const entries: { photo: Photograph; takenAt: string | null; sortOrder: number }[] = [];
   try {
@@ -54,6 +42,7 @@ export async function getPhotographs(): Promise<Photograph[]> {
       url.searchParams.set("pagination[pageSize]", "100");
       const response = await fetch(url, {
         headers: { Authorization: `Bearer ${token}` },
+        cache: "force-cache",
         next: { revalidate: 300 },
         signal: AbortSignal.timeout(8000),
       });
@@ -94,7 +83,7 @@ export async function getPhotographs(): Promise<Photograph[]> {
     });
     return entries.map(({ photo }) => photo);
   } catch (error) {
-    console.error("Could not load photographs from Strapi; showing archive.", error);
-    return archived;
+    console.error("Could not load photographs from Strapi.", error);
+    return null;
   }
 }
