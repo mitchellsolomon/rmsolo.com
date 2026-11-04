@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Gallery from "./gallery";
-import { photographs } from "./photos";
+import { getPhotographs } from "./photos";
 
 export const metadata: Metadata = {
   title: "Photography | Mitchell Solomon",
   description: "Photography by Mitchell Solomon.",
 };
 
-export default function PhotographyPage() {
+export default async function PhotographyPage() {
+  const photographs = await getPhotographs();
   return (
     <main
       id="main-content"

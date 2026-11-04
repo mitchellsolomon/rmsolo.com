@@ -1,5 +1,4 @@
-// Kept separately so automatic album syncs cannot overwrite editorial alt text.
-// Add a description for each new photo using its ID in photos.generated.ts.
+// Descriptive alt text for archived photographs.
 export const descriptions: Record<string, string> = {
   "889b25edb8273c4bfc9c1c80b7a59a0755a88978cdb054f22c113f19fdf73792": "Pink and orange sunset clouds over a quiet lane between houses.",
   "0b7af3ee95955adc42685f218ef419cb2aab598fecfa677cae03e1b49cee4c9f": "A weathered light-blue pickup truck parked beside other vehicles.",

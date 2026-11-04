@@ -28,17 +28,9 @@ The site has routes at `/`, `/links`, and `/photography`. The shared navigation 
 
 ## Photography
 
-Automatic publishing from the Mac's **Website Photography** album is documented
-in [`scripts/photo-sync/README.md`](scripts/photo-sync/README.md). The native
-helper exports web-ready copies and a background job publishes from an isolated
-checkout. It requires one-time Photos permission and an initial successful sync.
-Add photos to that album on an iPhone or Mac, wait for iCloud to sync to the Mac,
-and the job will check every five minutes while the Mac is awake. Newest photos
-appear first, based on their Photos creation date.
-
-Store web-ready originals in `src/assets/photography` and register static imports
-with descriptive alt text in `src/app/photography/photos.ts`. See
-[`src/assets/photography/README.md`](src/assets/photography/README.md) for an example.
+Photographs are managed in Strapi. See [`cms/README.md`](cms/README.md) for
+deployment, importing the existing gallery, and adding new images. Archived
+photos remain in the site until the CMS is connected so the gallery stays live.
 
 Every page and the shared navigation use the same `site-container`: a maximum
 width of 1440px and 20/32/48px responsive side padding. Body text starts at 16px;
@@ -54,16 +46,14 @@ Each photo goes into the shortest column so mixed shapes finish at similar
 heights. Positions use intrinsic dimensions, with no random layout, cropping,
 client-side measurement, or animated rearrangement. Clicking a photo opens an
 optimized full-size view in a native dialog with a dimmed backdrop. The viewer
-requests a size matched to the photo's shape and viewport, and reserves space
-for a blur placeholder while the full image loads. Added 1280px and 1440px
+requests a size matched to the photo's shape and viewport. Archived photos retain
+their blur placeholders. Added 1280px and 1440px
 optimizer widths avoid the default jump from 1200px to 1920px on Retina
 screens. Escape, the close button, and the backdrop close it; focus returns to
 the selected photo.
 Descriptions remain available to screen readers without appearing below the image.
 
-Photo descriptions live in `src/app/photography/descriptions.ts`, keyed by the
-stable IDs in `photos.generated.ts`. Add descriptive alt text there for new
-album photos; this editorial file is not overwritten by the sync job.
+Set descriptive alt text for new photos in Strapi's Photograph editor.
 
 Run `node --test scripts/test-board-layout.mjs` to check layout bounds,
 spacing, and column balance for mixed aspect ratios and verify existing
@@ -80,7 +70,11 @@ full WCAG audit.
 - Build command: **`pnpm build`** (also the automatic default for this project).
 - Leave the output directory at the Next.js default.
 
-No application environment variables are required. `next/font/google` downloads Inter during the build, so the build environment needs access to Google Fonts. Fonts are then served by the site.
+After Strapi is running, set `STRAPI_URL=https://strapi.rmsolohome.com` and
+`STRAPI_READ_TOKEN` in Vercel for all environments that should use it. The token
+stays server-side. Until both are set, the archived gallery is shown.
+`next/font/google` downloads Inter during the build, so the build environment
+needs access to Google Fonts. Fonts are then served by the site.
 
 After updating dependencies or changing Node versions, redeploy without the previous build cache if Vercel retains stale artifacts.
 

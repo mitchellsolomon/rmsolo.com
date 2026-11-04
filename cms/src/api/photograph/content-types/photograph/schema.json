@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "photographs",
+  "info": {
+    "singularName": "photograph",
+    "pluralName": "photographs",
+    "displayName": "Photograph",
+    "description": "Images shown on the photography page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "altText": { "type": "text", "required": true },
+    "takenAt": { "type": "datetime" },
+    "sortOrder": { "type": "integer", "default": 0 },
+    "legacyId": { "type": "string", "unique": true },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    }
+  }
+}

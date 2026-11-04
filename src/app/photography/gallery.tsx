@@ -35,14 +35,14 @@ export default function Gallery({ photos }: { photos: Photograph[] }) {
   const preview = photos.length === 0 && process.env.NODE_ENV === "development";
   const items: GalleryItem[] = preview ? previewItems : photos.map((photo) => ({
     id: photo.id,
-    width: photo.src.width,
-    height: photo.src.height,
+    width: photo.width,
+    height: photo.height,
     photo,
   }));
   const two = layout(items, 2);
   const three = layout(items, 3);
   const activePhoto = activeIndex === null ? null : items[activeIndex]?.photo;
-  const viewerRatio = activePhoto ? activePhoto.src.width / activePhoto.src.height : 1;
+  const viewerRatio = activePhoto ? activePhoto.width / activePhoto.height : 1;
   const viewerHeightWidth = `calc(${(viewerRatio * 100).toFixed(2)}dvh - ${(viewerRatio * 4).toFixed(2)}rem)`;
   const viewerSizes = `(max-width: 639px) min(calc(100vw - 2rem), ${viewerHeightWidth}), min(calc(100vw - 4rem), ${viewerHeightWidth})`;
 
@@ -96,9 +96,12 @@ export default function Gallery({ photos }: { photos: Photograph[] }) {
                 className="block w-full cursor-zoom-in text-left transition-opacity hover:opacity-90 motion-reduce:transition-none"
               >
                 <Image
-                  src={item.photo.src}
+                  src={item.photo.tileSrc ?? item.photo.src}
+                  width={item.photo.width}
+                  height={item.photo.height}
                   alt=""
-                  placeholder={item.photo.src.blurDataURL ? "blur" : "empty"}
+                  placeholder={item.photo.blurDataURL ? "blur" : "empty"}
+                  blurDataURL={item.photo.blurDataURL}
                   sizes="(min-width: 1440px) 422px, (min-width: 1024px) calc((100vw - 176px) / 3), (min-width: 640px) calc((100vw - 96px) / 2), calc(100vw - 40px)"
                   preload={index === 0}
                   fetchPriority={index > 2 ? "low" : undefined}
@@ -151,7 +154,7 @@ export default function Gallery({ photos }: { photos: Photograph[] }) {
                 <div
                   className="relative max-w-full shadow-2xl"
                   style={{
-                    aspectRatio: `${activePhoto.src.width} / ${activePhoto.src.height}`,
+                    aspectRatio: `${activePhoto.width} / ${activePhoto.height}`,
                     width: `min(calc(100vw - 2rem), ${viewerHeightWidth})`,
                   }}
                 >
@@ -159,7 +162,8 @@ export default function Gallery({ photos }: { photos: Photograph[] }) {
                     fill
                     src={activePhoto.src}
                     alt={activePhoto.alt}
-                    placeholder={activePhoto.src.blurDataURL ? "blur" : "empty"}
+                    placeholder={activePhoto.blurDataURL ? "blur" : "empty"}
+                    blurDataURL={activePhoto.blurDataURL}
                     sizes={viewerSizes}
                     loading="eager"
                     fetchPriority="high"
