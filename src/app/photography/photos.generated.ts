@@ -3,23 +3,33 @@ import type { Photograph } from "./photos";
 import photo0 from "@/assets/photography/synced/1428e69f7711184257facf55821e65ee506a2bf18be5d3a146c9b17af477fc18.jpg";
 import photo1 from "@/assets/photography/synced/24e42acc3609aa88f536e4ee589a2020e5768fbe5ab23aa067540b5ed914d21b.jpg";
 import photo2 from "@/assets/photography/synced/2cea0a959ad193c6683812d0dcd1346b87984799971cba3c4cc0fc3272e9d68b.jpg";
-import photo3 from "@/assets/photography/synced/83fb891a92e8639c7b8d8795f058ce974494080740bad135254b68feaaa0f242.jpg";
-import photo4 from "@/assets/photography/synced/8b1f005eeaebdf2e3e824abfd14cb3561c2425f9daf7b68a5de0eac4d3277a73.jpg";
-import photo5 from "@/assets/photography/synced/9b3dee4cf570582fc26446c543ebb619b48c302f53a2786f71e6d02e0f1c8339.jpg";
-import photo6 from "@/assets/photography/synced/c9da013f5f1d8db3e1a0e5b596d3a1f536081524b27439960e6ca70930a1a2f8.jpg";
-import photo7 from "@/assets/photography/synced/e6b27d9248c9bcfa60084d8ea32e96b45911643a5cc9544d64a4de35b215917f.jpg";
-import photo8 from "@/assets/photography/synced/ee2428faa2bae4a776ddb6b4eeaa3c401480911f7f7b2d390c1089ff3fca20e7.jpg";
-import photo9 from "@/assets/photography/synced/f955cac9709dd163942c6952d082714557bb8c5bb29a7a9b1a84214d353a3bdd.jpg";
+import photo3 from "@/assets/photography/synced/531fb917fbfcacbdd03997855ecdba257e67bd73d407f294371fae156de84757.jpg";
+import photo4 from "@/assets/photography/synced/578ff9ab212808c8be9d0efd0acd061c6210c7e38bb3e8375bcc8a696d64c4a5.jpg";
+import photo5 from "@/assets/photography/synced/83fb891a92e8639c7b8d8795f058ce974494080740bad135254b68feaaa0f242.jpg";
+import photo6 from "@/assets/photography/synced/8b1f005eeaebdf2e3e824abfd14cb3561c2425f9daf7b68a5de0eac4d3277a73.jpg";
+import photo7 from "@/assets/photography/synced/925931da8511009ec9961c6ee1775a147bca9c199fb78f7de7e1fdf4e4f6a7b6.jpg";
+import photo8 from "@/assets/photography/synced/9b3dee4cf570582fc26446c543ebb619b48c302f53a2786f71e6d02e0f1c8339.jpg";
+import photo9 from "@/assets/photography/synced/b592e54dc892729f087aaf3bae2d430b3d8af4a9947176cd712146672de8bfaa.jpg";
+import photo10 from "@/assets/photography/synced/c7cbeabfa0033d315928aba5b359d254a21b6292f3497f81b4b56b816ea2fc7b.jpg";
+import photo11 from "@/assets/photography/synced/c9da013f5f1d8db3e1a0e5b596d3a1f536081524b27439960e6ca70930a1a2f8.jpg";
+import photo12 from "@/assets/photography/synced/e6b27d9248c9bcfa60084d8ea32e96b45911643a5cc9544d64a4de35b215917f.jpg";
+import photo13 from "@/assets/photography/synced/ee2428faa2bae4a776ddb6b4eeaa3c401480911f7f7b2d390c1089ff3fca20e7.jpg";
+import photo14 from "@/assets/photography/synced/f955cac9709dd163942c6952d082714557bb8c5bb29a7a9b1a84214d353a3bdd.jpg";
 
 export const syncedPhotographs: Photograph[] = [
-  { id: "889b25edb8273c4bfc9c1c80b7a59a0755a88978cdb054f22c113f19fdf73792", src: photo4, alt: "Photograph by Mitchell Solomon" },
-  { id: "0b7af3ee95955adc42685f218ef419cb2aab598fecfa677cae03e1b49cee4c9f", src: photo6, alt: "Photograph by Mitchell Solomon" },
-  { id: "20d84275e721d52b3964de2889be12c4b50ce973443c53f6f8b4f0293bd924cd", src: photo7, alt: "Photograph by Mitchell Solomon" },
+  { id: "27bf0489b5abd6ac57e64bf91cf8e73fb9f946f65174a0e98e5ff5fa860efd8a", src: photo9, alt: "Photograph by Mitchell Solomon" },
+  { id: "d4d0ac1883f20042e53cba6539b803fa6f430d6d011996bdcc66db962aafe937", src: photo4, alt: "Photograph by Mitchell Solomon" },
+  { id: "23199a035fdd238e0acbe689704cd600782d0b2149e24e48dc48e3c5a3977258", src: photo10, alt: "Photograph by Mitchell Solomon" },
+  { id: "d0192c1522bc5a5b304f0ec0882998b53945492099384d39eaaf32c62090ad01", src: photo7, alt: "Photograph by Mitchell Solomon" },
+  { id: "e5b8c7cbfe3ee3f6636a76d50b7b8c6833fc6316654991f3fdb978a345b7f8d6", src: photo3, alt: "Photograph by Mitchell Solomon" },
+  { id: "889b25edb8273c4bfc9c1c80b7a59a0755a88978cdb054f22c113f19fdf73792", src: photo6, alt: "Photograph by Mitchell Solomon" },
+  { id: "0b7af3ee95955adc42685f218ef419cb2aab598fecfa677cae03e1b49cee4c9f", src: photo11, alt: "Photograph by Mitchell Solomon" },
+  { id: "20d84275e721d52b3964de2889be12c4b50ce973443c53f6f8b4f0293bd924cd", src: photo12, alt: "Photograph by Mitchell Solomon" },
   { id: "6ddd412432c08743d028b3e10415914df4d1d63081f01a754abb6779e53969bf", src: photo0, alt: "Photograph by Mitchell Solomon" },
   { id: "259f34af7263998ed2cc7ff0625e9ea282d376a90ac62e9864e7df89fe6dd5bb", src: photo1, alt: "Photograph by Mitchell Solomon" },
-  { id: "f087e8528cc1dd448998abe19d48b6fce796fafe60d1cfd7d91459b04349c02d", src: photo8, alt: "Photograph by Mitchell Solomon" },
-  { id: "a96b7498211c1cac6b613be768a889c21780d35400d1ded861839257763b16ce", src: photo9, alt: "Photograph by Mitchell Solomon" },
+  { id: "f087e8528cc1dd448998abe19d48b6fce796fafe60d1cfd7d91459b04349c02d", src: photo13, alt: "Photograph by Mitchell Solomon" },
+  { id: "a96b7498211c1cac6b613be768a889c21780d35400d1ded861839257763b16ce", src: photo14, alt: "Photograph by Mitchell Solomon" },
   { id: "36dab2d5681d51f6bf20324ee60fa0fbedb5b683337a16c53b36c390b4dada9a", src: photo2, alt: "Photograph by Mitchell Solomon" },
-  { id: "a346b383cf7d4837763c9b1a655f9ececd8d70223c41371da1a6793378db35a8", src: photo3, alt: "Photograph by Mitchell Solomon" },
-  { id: "4a452adb88daa7f0b4237e55f1fb64ac82328d237e6d72bec75cbda078be2e23", src: photo5, alt: "Photograph by Mitchell Solomon" },
+  { id: "a346b383cf7d4837763c9b1a655f9ececd8d70223c41371da1a6793378db35a8", src: photo5, alt: "Photograph by Mitchell Solomon" },
+  { id: "4a452adb88daa7f0b4237e55f1fb64ac82328d237e6d72bec75cbda078be2e23", src: photo8, alt: "Photograph by Mitchell Solomon" },
 ];
